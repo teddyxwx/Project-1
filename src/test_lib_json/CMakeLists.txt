@@ -10,11 +10,7 @@ add_executable(jsoncpp_test
 
 
 if(BUILD_SHARED_LIBS)
-    if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.12.0)
-        add_compile_definitions( JSON_DLL )
-    else()
-        add_definitions( -DJSON_DLL )
-    endif()
+    add_compile_definitions( JSON_DLL )
     target_link_libraries(jsoncpp_test jsoncpp_lib)
 else()
     target_link_libraries(jsoncpp_test jsoncpp_static)

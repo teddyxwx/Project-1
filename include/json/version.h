@@ -1,17 +1,6 @@
 #ifndef JSON_VERSION_H_INCLUDED
 #define JSON_VERSION_H_INCLUDED
 
-// Note: version must be updated in three places when doing a release. This
-// annoying process ensures that CMake and the headers report the correct version.
-// 1. ./include/json/version.h
-// 2. ./CMakeLists.txt
-// IMPORTANT: also update the SOVERSION!!
-
-#define JSONCPP_VERSION_STRING "1.9.5"
-#define JSONCPP_VERSION_MAJOR 1
-#define JSONCPP_VERSION_MINOR 9
-#define JSONCPP_VERSION_PATCH 5
-
 #ifdef JSONCPP_USING_SECURE_MEMORY
 #undef JSONCPP_USING_SECURE_MEMORY
 #endif

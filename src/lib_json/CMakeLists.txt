@@ -18,11 +18,7 @@ check_struct_has_member(lconv decimal_point clocale HAVE_DECIMAL_POINT LANGUAGE 
 
 if(NOT (HAVE_CLOCALE AND HAVE_LCONV_SIZE AND HAVE_DECIMAL_POINT AND HAVE_LOCALECONV))
     message(WARNING "Locale functionality is not supported")
-    if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.12.0)
-        add_compile_definitions(JSONCPP_NO_LOCALE_SUPPORT)
-    else()
-        add_definitions(-DJSONCPP_NO_LOCALE_SUPPORT)
-    endif()
+    add_compile_definitions(JSONCPP_NO_LOCALE_SUPPORT)
 endif()
 
 set(JSONCPP_INCLUDE_DIR ../../include)
@@ -107,11 +103,7 @@ list(APPEND REQUIRED_FEATURES
 
 
 if(BUILD_SHARED_LIBS)
-    if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.12.0)
-        add_compile_definitions(JSON_DLL_BUILD)
-    else()
-        add_definitions(-DJSON_DLL_BUILD)
-    endif()
+    add_compile_definitions(JSON_DLL_BUILD)
 
     set(SHARED_LIB ${PROJECT_NAME}_lib)
     add_library(${SHARED_LIB} SHARED ${PUBLIC_HEADERS} ${JSONCPP_SOURCES})
