@@ -80,7 +80,8 @@ To add a new executable, you need to modify `CMakeLists.txt` and `src/CMakeLists
 
 ## Tasks (max 100pts)
 
-- [ ] Maintenance (must do): Setup [Coveralls](https://coveralls.io/) for your repository to track the code coverage.
+- [ ] Maintenance (40%pts off if not done): Setup [Coveralls](https://coveralls.io/) for your repository to track the code coverage. (TODO)
+    - Include a link here.
 - [ ] C++ API (5pts): Define JSON directly in C++ with [User-defined literals](https://en.cppreference.com/w/cpp/language/user_literal).
 - [ ] C++ API (5pts): Allow assignment to member of an object using `[]`.
 - [ ] Utility (5pts): Convert from and to CSV.
