@@ -80,25 +80,38 @@ To add a new executable, you need to modify `CMakeLists.txt` and `src/CMakeLists
 
 ## Tasks (max 100pts)
 
-- [ ] Maintenance (?pts): Setup [Coveralls](https://coveralls.io/) for your repository to track the code coverage.
-- [ ] C++ API (?pts): Define JSON directly in C++ with [User-defined literals](https://en.cppreference.com/w/cpp/language/user_literal).
-- [ ] C++ API (?pts): Allow assignment to member of an object using `[]`.
-- [ ] Utility (?pts): Convert from and to CSV.
-- [ ] Grammar (?pts): Allow zero or one trailing comma in JSON array and object.
-- [ ] Feature (?pts): Add a new type `binary` to represent binary data.
-- [ ] Feature (?pts): Add a new type `date` to represent date and time.
-- [ ] Feature (?pts): Add a pointer to share JSON values.
-- [ ] Feature (?pts): Support string concatenation.
-- [ ] Utility (?pts): Add XPath-like query to JSON.
-- [ ] Utility (?pts): [Schema](https://json-schema.org/learn/) validation.
-- [ ] Utility (?pts): Zip a folder into a JSON file.
-- [ ] Performance (?pts): Add indexing support for JSON to support random read.
-- [ ] Performance (?pts): JSON minifier using pointers.
-- [ ] Utility (?pts): Make a terminal UI for easy browsing & editing JSON.
+- [ ] Maintenance (must do): Setup [Coveralls](https://coveralls.io/) for your repository to track the code coverage.
+- [ ] C++ API (5pts): Define JSON directly in C++ with [User-defined literals](https://en.cppreference.com/w/cpp/language/user_literal).
+- [ ] C++ API (5pts): Allow assignment to member of an object using `[]`.
+- [ ] Utility (5pts): Convert from and to CSV.
+- [ ] Grammar (5pts): Allow zero or one trailing comma in JSON array and object.
+- [ ] Feature (5pts): Add a new type `binary` to represent binary data.
+- [ ] Feature (5pts): Add a new type `date` to represent date and time.
+- [ ] Feature (5pts): Support string concatenation.
+- [ ] Feature (5pts): Support pointers to share JSON values.
+- [ ] Utility (15pts): [Schema](https://json-schema.org/learn/) validation.
+    - Only need to support the keys used in the [examples collection](https://json-schema.org/learn/).
+    - URL-related keywords are not required, such as `$ref`.
+- [ ] Utility (10pts + 5pts): Support [XPath](https://developer.mozilla.org/en-US/docs/Web/XPath)-like query to JSON.
+    - Required path selector: `.` (current node), `..` (parent node), `*` (all children), `name` (child with name `name`), array index (e.g. `[0]`).
+    - Overload `operator / ()` to support path selector. No need to parse the query string.
+    - Extra 5pts if you can support writing via the query.
+- [ ] Utility (15pts): Support zipping and unzipping all the contents of a folder into a JSON file.
+    - You might want to combine this task with the `binary` type.
+    - Metadata of the files do not need to be preserved.
+    - You might want to enable C++ 17 to use `std::filesystem`.
+- [ ] Performance (30pts): Add indexing support for JSON to support random read on disk without loading the full file in memory.
+    - The index should be stored in the same file.
+    - The JSON file should still be able to be parsed correctly with your program.
+- [ ] Performance (30pts): JSON minifier using pointers.
+    - Minify the output size of JSON by removing unnecessary characters.
+    - You probably want to combine this task with the task of pointer support and string concatenation.
+- [ ] Utility (30pts): Make a terminal UI for easy browsing & editing JSON.
+    - A tree view (or better) interface is required.
     - Using [ncurses](https://invisible-island.net/ncurses/announce.html), [FTXUI](https://github.com/ArthurSonzogni/FTXUI), or something else to prettify the output.
     - A screenshot of the terminal UI should be included in README.
    - The libraries should be embedded inside the repository. Don't forget to include the LICENSE!
-- [ ] Other (?pts): Anything else you can think of. The score is judged by usefulness, difficulty, and implementation quality.
+- [ ] Other (40pts): Anything else you can think of. The score is judged by usefulness, difficulty, and implementation quality.
 
 Each implemented feature should contain **reasonable** tests in order to get full points.
 Tasks without tasks get at most 50% of the points.
@@ -109,17 +122,17 @@ since it is part of the project to design the API and the tests.
 
 After you finish a task,
 you should tick the checkbox here in `README.md`,
-and add more design details to the list above.
+and briefly summarize what you did in the list above.
 
-Remember, a clear and well-organized summary helps people to understand your work better.
+Remember, a clear and well-organized summary helps TAs to understand your work better.
 If you don't think a detail is worth mentioning,
 neither does the reader.
-Sometimes a screenshot would help to demonstrate your work.
+Sometimes a screenshot is worth a thousand words.
 
 A bad example:
 
-> - [ ] Feature (?pts): Add a new type `binary` to represent binary data.
-> - [x] Feature (?pts): Add a new type `date` to represent date and time.
+> - [ ] Feature (5pts): Add a new type `binary` to represent binary data.
+> - [x] Feature (5pts): Add a new type `date` to represent date and time.
 >     - A C++ class `Date` is added to represent date information.
 >     - Added a new switch branch in `json_reader` to parse date strings.
 >     - Added a serialization function to `json_writer` to convert `Date` to string.
@@ -127,15 +140,15 @@ A bad example:
 >     - Test: Converting JSON with "date" field to string outputs expected results.
 >     - Test: Invalid date strings are rejected.
 >     - Other tests are still passed after the changing the code.
-> - [ ] Feature (?pts): Add a pointer to share JSON values.
+> - [ ] Feature (5pts): Add a pointer to share JSON values.
 
 A (too) good example:
 
-> - [ ] Feature (?pts): Add a new type `binary` to represent binary data.
-> - [x] Feature (?pts): Add a new type `date` to represent date and time.
+> - [ ] Feature (5pts): Add a new type `binary` to represent binary data.
+> - [x] Feature (5pts): Add a new type `date` to represent date and time.
 >     - Support date in ISO 8601 format.
 >     - Distinguish date from string with quotes "`"`".
 >     - Distinguish date from numbers using `isNumber()`.
 >     - Test: Valid date strings are not parsed as numbers or strings.
 >     - Test: Use substrings of valid date strings to generate erroneous date strings.
-> - [ ] Feature (?pts): Add a pointer to share JSON values.
+> - [ ] Feature (5pts): Add a pointer to share JSON values.
