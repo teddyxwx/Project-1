@@ -64,8 +64,78 @@ to explore how to design a type-safe dynamic library in C++.
 
 ## Getting Started
 
-You need to install python3.
+As always, you need a working C++ compiler and CMake installed on your system.
+Additionally, Python3 is required to run the tests.
 
-[JsonCpp-documentation]: http://open-source-parsers.github.io/jsoncpp-docs/doxygen/index.html
+You might find the following files helpful:
 
-If you have trouble, see the [Wiki](https://github.com/open-source-parsers/jsoncpp/wiki), or post a question as an Issue.
+* `include/json/value.h`.
+* `src/lib_json/json_reader.cpp`.
+
+For the usage of existing source code, see the original [Wiki](https://github.com/open-source-parsers/jsoncpp/wiki)
+and [API document](http://open-source-parsers.github.io/jsoncpp-docs/doxygen/index.html).
+
+To add a new executable, you need to modify `CMakeLists.txt` and `src/CMakeLists.txt`.
+(TODO)
+
+## Tasks (max 100pts)
+
+- [ ] Maintenance (?pts): Setup [Coveralls](https://coveralls.io/) for your repository to track the code coverage.
+- [ ] C++ API (?pts): Define JSON directly in C++ with [User-defined literals](https://en.cppreference.com/w/cpp/language/user_literal).
+- [ ] C++ API (?pts): Allow assignment to member of an object using `[]`.
+- [ ] Utility (?pts): Convert from and to CSV.
+- [ ] Grammar (?pts): Allow zero or one trailing comma in JSON array and object.
+- [ ] Feature (?pts): Add a new type `binary` to represent binary data.
+- [ ] Feature (?pts): Add a new type `date` to represent date and time.
+- [ ] Feature (?pts): Add a pointer to share JSON values.
+- [ ] Feature (?pts): Support string concatenation.
+- [ ] Utility (?pts): Add XPath-like query to JSON.
+- [ ] Utility (?pts): [Schema](https://json-schema.org/learn/) validation.
+- [ ] Utility (?pts): Zip a folder into a JSON file.
+- [ ] Performance (?pts): Add indexing support for JSON to support random read.
+- [ ] Performance (?pts): JSON minifier using pointers.
+- [ ] Utility (?pts): Make a terminal UI for easy browsing & editing JSON.
+    - Using [ncurses](https://invisible-island.net/ncurses/announce.html), [FTXUI](https://github.com/ArthurSonzogni/FTXUI), or something else to prettify the output.
+    - A screenshot of the terminal UI should be included in README.
+   - The libraries should be embedded inside the repository. Don't forget to include the LICENSE!
+- [ ] Other (?pts): Anything else you can think of. The score is judged by usefulness, difficulty, and implementation quality.
+
+Each implemented feature should contain **reasonable** tests in order to get full points.
+Tasks without tasks get at most 50% of the points.
+The specific test requirements for each task are **not** revealed
+since it is part of the project to design the API and the tests.
+
+## Report
+
+After you finish a task,
+you should tick the checkbox here in `README.md`,
+and add more design details to the list above.
+
+Remember, a clear and well-organized summary helps people to understand your work better.
+If you don't think a detail is worth mentioning,
+neither does the reader.
+Sometimes a screenshot would help to demonstrate your work.
+
+A bad example:
+
+> - [ ] Feature (?pts): Add a new type `binary` to represent binary data.
+> - [x] Feature (?pts): Add a new type `date` to represent date and time.
+>     - A C++ class `Date` is added to represent date information.
+>     - Added a new switch branch in `json_reader` to parse date strings.
+>     - Added a serialization function to `json_writer` to convert `Date` to string.
+>     - Test: Input data with "data" field can be parsed correctly.
+>     - Test: Converting JSON with "date" field to string outputs expected results.
+>     - Test: Invalid date strings are rejected.
+>     - Other tests are still passed after the changing the code.
+> - [ ] Feature (?pts): Add a pointer to share JSON values.
+
+A (too) good example:
+
+> - [ ] Feature (?pts): Add a new type `binary` to represent binary data.
+> - [x] Feature (?pts): Add a new type `date` to represent date and time.
+>     - Support date in ISO 8601 format.
+>     - Distinguish date from string with quotes "`"`".
+>     - Distinguish date from numbers using `isNumber()`.
+>     - Test: Valid date strings are not parsed as numbers or strings.
+>     - Test: Use substrings of valid date strings to generate erroneous date strings.
+> - [ ] Feature (?pts): Add a pointer to share JSON values.
