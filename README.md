@@ -71,8 +71,10 @@ to explore how to design a type-safe dynamic library in C++.
 - [ ] Utility (5pts): Convert from and to [CSV Files](https://datatracker.ietf.org/doc/html/rfc4180).
     - An implementation as simple as comma-separated values suffices.
 - [ ] Feature (5pts): Allow zero or one [trailing commas](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Trailing_commas) in JSON arrays and objects.
-- [ ] Feature (5pts): Add a new type `binary` to represent binary data.
-- [ ] Feature (5pts): Support string concatenation.
+- [ ] Feature (10pts): Add a new type `binary` to represent binary data.
+- [ ] Feature (10pts): Support string concatenation.
+    - Example: `{"name": "San"+"Zhang"}` should be equivalent to `{"name": "SanZhang"}`.
+    - Concatenation in keys in objects is not required.
 - [ ] Feature (10pts): Add a new type `date` to represent date and time.
 - [ ] Feature (10pts): Support pointers to share JSON values.
 - [ ] Utility (15pts): [Schema](https://json-schema.org/learn/) validation.
@@ -97,10 +99,11 @@ to explore how to design a type-safe dynamic library in C++.
     - A screenshot of the terminal UI should be included in README.
     - The libraries should be embedded inside the repository. Don't forget to include the license files!
 - [ ] Other (40pts): Anything else you can think of.
-    -The score is judged by usefulness, difficulty, and implementation quality.
+    - The score is judged by usefulness, difficulty, and implementation quality.
 
+As seen from the first task,
+tests consist of 40% of the total score in this project.
 Each implemented feature should contain **reasonable** tests in order to get full points.
-Tasks without tasks get at most 50% of the points.
 The specific test requirements for each task are **not** revealed
 since it is part of the project to design the API and the tests.
 
