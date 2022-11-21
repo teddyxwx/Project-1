@@ -120,8 +120,7 @@ Sometimes a screenshot is worth a thousand words.
 
 A bad example:
 
-> - [ ] Feature (5pts): Add a new type `binary` to represent binary data.
-> - [x] Feature (5pts): Add a new type `date` to represent date and time.
+> - [x] Feature (10pts): Add a new type `date` to represent date and time.
 >     - A C++ class `Date` is added to represent date information.
 >     - Added a new switch branch in `json_reader` to parse date strings.
 >     - Added a serialization function to `json_writer` to convert `Date` to string.
@@ -129,18 +128,15 @@ A bad example:
 >     - Test: Converting JSON with "date" field to string outputs expected results.
 >     - Test: Invalid date strings are rejected.
 >     - Other tests are still passed after the changing the code.
-> - [ ] Feature (5pts): Add a pointer to share JSON values.
 
 A (too) good example:
 
-> - [ ] Feature (5pts): Add a new type `binary` to represent binary data.
-> - [x] Feature (5pts): Add a new type `date` to represent date and time.
+> - [x] Feature (10pts): Add a new type `date` to represent date and time.
 >     - Support date in ISO 8601 format.
 >     - Distinguish date from string with quotes "`"`".
 >     - Distinguish date from numbers using `isNumber()`.
 >     - Test: Valid date strings are not parsed as numbers or strings.
 >     - Test: Use substrings of valid date strings to generate erroneous date strings.
-> - [ ] Feature (5pts): Add a pointer to share JSON values.
 
 ## Guides
 
