@@ -29,14 +29,4 @@ if(PYTHONINTERP_FOUND)
         DEPENDS jsontestrunner_exe jsoncpp_test
     )
     add_custom_target(jsoncpp_check DEPENDS jsoncpp_readerwriter_tests)
-
-    ## Create tests for dashboard submission, allows easy review of CI results https://my.cdash.org/index.php?project=jsoncpp
-    add_test(NAME jsoncpp_readerwriter
-        COMMAND "${PYTHON_EXECUTABLE}" -B "${RUNJSONTESTS_PATH}" $<TARGET_FILE:jsontestrunner_exe> "${TEST_DIR}/data"
-        WORKING_DIRECTORY "${TEST_DIR}/data"
-    )
-    add_test(NAME jsoncpp_readerwriter_json_checker
-        COMMAND "${PYTHON_EXECUTABLE}" -B "${RUNJSONTESTS_PATH}" --with-json-checker  $<TARGET_FILE:jsontestrunner_exe> "${TEST_DIR}/data"
-        WORKING_DIRECTORY "${TEST_DIR}/data"
-    )
 endif()
