@@ -114,7 +114,7 @@ cd "${_BUILD_DIR_NAME}"
     -DCMAKE_INSTALL_PREFIX:PATH=${DESTDIR} \
     ../
 
-  ctest -C ${BUILD_TYPE} -D ExperimentalStart -D ExperimentalConfigure -D ExperimentalBuild ${CTEST_TESTING_OPTION} -D ExperimentalSubmit
+  ctest -C ${BUILD_TYPE} -D ExperimentalStart -D ExperimentalConfigure -D ExperimentalBuild ${CTEST_TESTING_OPTION}
 cd -
 
 if ${CLEANUP+false}; then
