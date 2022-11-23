@@ -1,0 +1,26 @@
+name: Build JSON lib
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: sudo apt install valgrind ninja-build
+      - name: Build
+        run: |
+          BUILD_TYPE=Release
+          LIB_TYPE=Shared
+          BUILD_TOOL=Ninja
+          DO_MemCheck=true
+          DO_Coverage=true
+          source .github/workflows/build.sh
+      
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
