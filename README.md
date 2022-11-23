@@ -337,7 +337,7 @@ bool readSomething() {
     }
     current += 1; // Only do this if you decide that (*current) is part of this value!
     // Do something more to get val
-    currentValue().swap(val);
+    currentValue().swapPayload(val);
 }
 ```
 
