@@ -12,7 +12,7 @@
 To see why it is needed, lets imagine a scenario.
 
 You are developing an instant message app, OurChat, which can send and receive messages.
-Alice send a message "Hello World!" to Bob.
+Alice sends a message "Hello World!" to Bob.
 The message sent by the program would look like:
 
 ```
@@ -77,28 +77,28 @@ to explore how to design a type-safe dynamic library in C++.
     - Concatenation in keys in objects is not required.
 - [ ] Feature (10pts): Add a new type `date` to represent date and time.
 - [ ] Feature (10pts): Support pointers to share JSON values.
-- [ ] Utility (15pts): [Schema](https://json-schema.org/learn/) validation.
+- [ ] Utility (20pts): [Schema](https://json-schema.org/learn/) validation.
     - Only need to support the keys used in the [examples collection](https://json-schema.org/learn/).
     - URL-related keywords are not required, such as `$ref`.
-- [ ] Utility (10pts + 5pts): Support [XPath](https://developer.mozilla.org/en-US/docs/Web/XPath)-like query to JSON.
+- [ ] Utility (10pts + 10pts): Support [XPath](https://developer.mozilla.org/en-US/docs/Web/XPath)-like query to JSON.
     - Required path selector: `.` (current node), `..` (parent node), `*` (all children), `name` (child with name `name`), array index (e.g. `[0]`).
     - Overload `operator / ()` to support path selector. No need to parse the query string.
-    - Extra 5pts if you can support assignment via the query.
-- [ ] Utility (15pts): Support bundling and unbundling all the contents of a folder into a JSON file.
+    - Extra 10pts if you can support assignment via the query.
+- [ ] Utility (20pts): Support bundling and unbundling all the contents of a folder into a JSON file.
     - You might want to combine this task with the `binary` type.
     - Metadata of the files do not need to be preserved.
     - You might want to enable C++ 17 to use `std::filesystem` by `set(CMAKE_CXX_STANDARD 17)` in `CMakeLists.txt`.
-- [ ] Performance (30pts): Add indexing support for JSON to support random read on disk without loading the full file in memory.
-    - The index should be stored in the same file.
-    - The JSON file should still be able to be parsed correctly with your program.
-- [ ] Performance (30pts): JSON minifier using pointers.
+- [ ] Performance (50pts): JSON minifier using pointers.
     - Minify the output size of JSON by removing unnecessary characters.
     - You probably want to combine this task with the task of pointer support and string concatenation.
-- [ ] Utility (30pts): Make a terminal UI for easy browsing & editing JSON.
+- [ ] Utility (50pts): Make a terminal UI for easy browsing & editing JSON.
     - A tree view (or better) interface is required. Use [ncurses](https://invisible-island.net/ncurses/announce.html), [FTXUI](https://github.com/ArthurSonzogni/FTXUI), or something else to prettify the output.
     - A screenshot of the terminal UI should be included in README.
     - The libraries should be embedded inside the repository. Don't forget to include the license files!
-- [ ] Other (40pts): Anything else you can think of.
+- [ ] Performance (50pts): Add indexing support for JSON to support random read on disk without loading the full file in memory.
+    - The index should be stored in the same file.
+    - The JSON file should still be able to be parsed correctly with your program.
+- [ ] Other (50pts): Anything else you can think of.
     - The score is judged by usefulness, difficulty, and implementation quality.
 
 As seen from the first task,
@@ -113,7 +113,7 @@ After you finish a task,
 you should tick the checkbox here in `README.md`,
 and briefly summarize what you did in the list above.
 
-Remember, a clear and well-organized summary helps TAs to understand your work better.
+A clear and well-organized summary helps TAs to understand your work better.
 If you don't think a detail is worth mentioning,
 neither does the reader.
 Sometimes a screenshot is worth a thousand words.
