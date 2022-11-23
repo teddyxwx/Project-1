@@ -25,17 +25,14 @@ jobs:
           BUILD_TYPE=Debug
           LIB_TYPE=static
           source .github/workflows/build.sh
-      - name: Gather coverage
-        # https://github.com/codecov/example-cpp11-cmake
-        run: |
-          lcov --capture --directory . --output-file coverage.info
-          lcov --remove coverage.info '/usr/*' --output-file coverage.info # filter system-files
-          lcov --list coverage.info # debug info
       - name: Upload coverage reports
         uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           gcov: true
+          gcov_ignore: /usr/*
           gcov_include: src/lib_json include
           fail_ci_if_error: true # optional (default = false)
           verbose: true # optional (default = false)
