@@ -115,12 +115,6 @@ cd "${_BUILD_DIR_NAME}"
     ../
 
   ctest -C ${BUILD_TYPE} -D ExperimentalStart -D ExperimentalConfigure -D ExperimentalBuild ${CTEST_TESTING_OPTION} -D ExperimentalSubmit
-  # Final step is to verify that installation succeeds
-  cmake --build . --config ${BUILD_TYPE} --target install
-
-  if [ "${DESTDIR}" != "/usr/local" ]; then
-     ${_BUILD_EXE} install
-  fi
 cd -
 
 if ${CLEANUP+false}; then
