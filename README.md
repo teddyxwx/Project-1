@@ -171,7 +171,20 @@ Codecov requires admin access from the organization so TA will open up access fo
 This might take 2-3 days depending on the workload of the TA.
 
 After the setup is done,
-TODO
+you can find your own badge in the [homework document page](https://yaoclasscpp.studio/assignments/project-1/).
+Add the badge to your `README`!
+Right-click the badge and select "Open image in new tab" to get the URL.
+The markdown source should look like:
+
+```markdown
+![codecov](https://codecov.io/gh/Yao-class-cpp-studio/Project-1/branch/main/graph/badge.svg?token=JS6LK1XNFY)
+```
+
+If you want to view the coverage reports yourself,
+you could either run the coverage tests locally,
+or fork this repository and play with Codecov.
+See [`.github/workflows/`](.github/workflows/) for reference.
+Remember, **never show others your code or it will be considered plagiarism**.
 
 ### Testing
 
