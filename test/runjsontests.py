@@ -10,7 +10,6 @@ from glob import glob
 import sys
 import os
 import os.path
-import optparse
 
 VALGRIND_CMD = 'valgrind --tool=memcheck --leak-check=yes --undef-value-errors=yes '
 

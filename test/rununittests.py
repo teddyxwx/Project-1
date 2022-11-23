@@ -5,13 +5,9 @@
 
 from __future__ import print_function
 from __future__ import unicode_literals
-from io import open
-from glob import glob
 import sys
 import os
-import os.path
 import subprocess
-import optparse
 
 VALGRIND_CMD = 'valgrind --tool=memcheck --leak-check=yes --undef-value-errors=yes'
 

@@ -25,7 +25,15 @@ jobs:
           DO_Coverage=ON
           BUILD_TOOL="Unix Makefiles"
           BUILD_TYPE=Debug
-          LIB_TYPE=shared
+          LIB_TYPE=static
           source .github/workflows/build.sh
-      - name: Upload coverage to Coveralls
-        run: coveralls --include src/lib_json --include include -t ${{ secrets.GITHUB_TOKEN }}
+      steps:
+      - uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          gcov: true
+          gcov_include:
+            - src/lib_json
+            - include
+          fail_ci_if_error: true # optional (default = false)
+          verbose: true # optional (default = false)
