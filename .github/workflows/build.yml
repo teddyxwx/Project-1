@@ -16,6 +16,7 @@ jobs:
             valgrind \
             make \
             ;
+          pip install --user cpp-coveralls
       - name: Build
         run: |
           DO_MemCheck=true
@@ -26,7 +27,5 @@ jobs:
           BUILD_TYPE=Debug
           LIB_TYPE=shared
           source .github/workflows/build.sh
-      - name: Coveralls
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload coverage to Coveralls
+        run: coveralls --include src/lib_json --include include -t ${{ secrets.GITHUB_TOKEN }}
