@@ -32,8 +32,6 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           gcov: true
-          gcov_include:
-            - src/lib_json
-            - include
+          gcov_include: src/lib_json include
           fail_ci_if_error: true # optional (default = false)
           verbose: true # optional (default = false)
