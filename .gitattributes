@@ -8,4 +8,3 @@
 *.vcproj    eol=crlf
 *.vcxproj   eol=crlf
 *.sln       eol=crlf
-devtools/agent_vm* eol=crlf
