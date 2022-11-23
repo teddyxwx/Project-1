@@ -14,16 +14,17 @@ jobs:
           sudo apt update
           sudo apt install -y \
             valgrind \
-            ninja-build \
+            make \
             ;
       - name: Build
         run: |
-          BUILD_TYPE=Release
-          LIB_TYPE=Shared
-          BUILD_TOOL=Ninja
           DO_MemCheck=true
-          DO_Coverage=true
           CXX=g++
+          CC=gcc
+          DO_Coverage=ON
+          BUILD_TOOL="Unix Makefiles"
+          BUILD_TYPE=Debug
+          LIB_TYPE=shared
           source .github/workflows/build.sh
       - name: Coveralls
         uses: coverallsapp/github-action@master
