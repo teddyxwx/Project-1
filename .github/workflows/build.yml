@@ -33,6 +33,5 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           gcov: true
           gcov_ignore: /usr/*
-          gcov_include: src/lib_json include
           fail_ci_if_error: true # optional (default = false)
           verbose: true # optional (default = false)
