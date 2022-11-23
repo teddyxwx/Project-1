@@ -64,25 +64,24 @@ to explore how to design a type-safe dynamic library in C++.
 
 - [ ] Maintenance (40%pts off if not done): Setup [Codecov](https://about.codecov.io/) for your repository to track the code coverage.
     - Check below for instructions.
-- [ ] C++ API (5pts): Define JSON directly in C++ with [User-defined literals](https://en.cppreference.com/w/cpp/language/user_literal).
-- [ ] C++ API (5pts): Support [user-defined conversion](https://en.cppreference.com/w/cpp/language/cast_operator) to primitive types.
-- [ ] Utility (5pts): Convert from and to [CSV Files](https://datatracker.ietf.org/doc/html/rfc4180).
+- [ ] C++ API (15pts): Define JSON directly in C++ with [User-defined literals](https://en.cppreference.com/w/cpp/language/user_literal).
+- [ ] C++ API (15pts): Support [user-defined conversion](https://en.cppreference.com/w/cpp/language/cast_operator) to primitive types.
+- [ ] Utility (15pts): Convert from and to [CSV Files](https://datatracker.ietf.org/doc/html/rfc4180).
     - An implementation as simple as comma-separated values suffices.
-- [ ] Feature (10pts): Allow zero or one [trailing commas](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Trailing_commas) in JSON arrays and objects.
-- [ ] Feature (10pts): Add a new type `binary` to represent binary data.
-- [ ] Feature (10pts): Support string concatenation.
+- [ ] Feature (30pts): Allow zero or one [trailing commas](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Trailing_commas) in JSON arrays and objects.
+- [ ] Feature (30pts): Support string concatenation.
     - Example: `{"name": "San"+"Zhang"}` should be equivalent to `{"name": "SanZhang"}`.
     - Concatenation in keys in objects is not required.
-- [ ] Feature (10pts): Add a new type `date` to represent date and time.
-- [ ] Feature (10pts): Support pointers to share JSON values.
-- [ ] Utility (20pts): [Schema](https://json-schema.org/learn/) validation.
+- [ ] Feature (30pts): Add a new type `binary` to represent binary data.
+- [ ] Feature (30pts): Support pointers to share JSON values.
+- [ ] Utility (30pts): [Schema](https://json-schema.org/learn/) validation.
     - Only need to support the keys used in the [examples collection](https://json-schema.org/learn/).
     - URL-related keywords are not required, such as `$ref`.
-- [ ] Utility (10pts + 10pts): Support [XPath](https://developer.mozilla.org/en-US/docs/Web/XPath)-like query to JSON.
+- [ ] Utility (20pts + 10pts): Support [XPath](https://developer.mozilla.org/en-US/docs/Web/XPath)-like query to JSON.
     - Required path selector: `.` (current node), `..` (parent node), `*` (all children), `name` (child with name `name`), array index (e.g. `[0]`).
     - Overload `operator / ()` to support path selector. No need to parse the query string.
     - Extra 10pts if you can support assignment via the query.
-- [ ] Utility (20pts): Support bundling and unbundling all the contents of a folder into a JSON file.
+- [ ] Utility (30pts): Support bundling and unbundling all the contents of a folder into a JSON file.
     - You might want to combine this task with the `binary` type.
     - Metadata of the files do not need to be preserved.
     - You might want to enable C++ 17 to use `std::filesystem` by `set(CMAKE_CXX_STANDARD 17)` in `CMakeLists.txt`.
@@ -137,59 +136,72 @@ A (too) good example:
 
 ## Guides
 
-### Getting Started
+### Project Structure
 
-As always, you need a working C++ compiler and CMake installed on your system.
+The core library is written in [`src/lib_json/`](src/lib_json)
+and its header files are put in [`include/`](include/).
+Users of the library only need to include the header files from [`include/`](include/).
 
-You might find the following files helpful:
+The major part of the library consists of a JSON parser
+(see [`src/lib_json/json_reader.cpp`](src/lib_json/json_reader.cpp))
+and a JSON writer [`src/lib_json/json_writer.cpp`](src/lib_json/json_writer.cpp)
+The JSON parser reads from a string (or a file) and generates a JSON value type in C++,
+named `Value` in [`src/lib_json/json_reader.cpp`](src/lib_json/json_reader.cpp).
+A few examples of using the reader and the parser are given in [`example/`](example/).
 
-* `include/json/value.h`.
-* `src/lib_json/json_reader.cpp`.
+This project is much larger than previous assignments in terms of the code you need to read.
+There are techniques to jump right in the library without reading the whole thing.
+Some common techniques include:
 
-A few examples of the API are given in [`example/`](example/).
+* Don't read the whole file. Read the header files in [`include/`](include/) first.
+* Only look at the relevant code of a variable / function.
+Use the IDE's "Find Usages" feature, or simply do a global search.
+* Analyze which parts of the project are relevant to the task you are working on,
+and change them accordingly.
+For example, the task `date` might involve:
+    * Adding a new enum type in `include/value.h`
+    * Adding corresponding token and `read*()` parser in `src/lib_json/json_reader.cpp`
+    * Adding a `switch` case and `write*()` writer in `src/lib_json/json_writer.cpp`
+* You might find that good encapsulation is important
+since it allows you to modify a part of the code without even knowing
+how the rest of the code works.
+Therefore, try to keep encapsulation in mind when you are writing your part of the code.
 
-For the usage of existing source code, see the original [Wiki](https://github.com/open-source-parsers/jsoncpp/wiki)
+For more usage of existing source code, see the original [Wiki](https://github.com/open-source-parsers/jsoncpp/wiki)
 and [API document](http://open-source-parsers.github.io/jsoncpp-docs/doxygen/index.html).
 
-### Adding a new executable
+### Running the Program
 
-If you write a new program with `main()` function,
-you need to add a new executable to `CMakeLists.txt`:
+As always, you need a working C++ compiler and CMake installed on your system
+to compile and run the source code.
+
+We would like to clarify that this project is a *library*, but not an *executable*.
+Therefore, there is no `main()` function in the core library,
+and nothing for you to execute.
+Instead, the project has a bunch of [tests](test/), [example programs](example/), and benchmarks
+(which this project does not contain).
+
+To write a program that uses this JSON library,
+the headers must be included:
+
+```cpp
+#include <json/json.h>
+int main() {
+    // Some json operations
+}
+```
+
+and a new entry needs to be added to `CMakeLists.txt`:
 
 ```cmake
-add_executable(my_executable path/to/my_executable.cpp)
+add_executable(my_executable path/to/source/code.cpp)
 target_link_libraries(my_executable jsoncpp_static)
 ```
 
 in order to compile and link it with the JSON library.
-
-### Setting-up Codecov
-
-Codecov requires admin access from the organization so TA will open up access for you
-**after you have accepted the homework in github classroom**.
-This might take 2-3 days depending on the workload of the TA.
-
-After the setup is done,
-you can find your own badge in the [homework document page](https://yaoclasscpp.studio/assignments/project-1/).
-Add the badge to your `README`!
-Right-click the badge and select "Open image in new tab" to get the URL.
-The markdown source should look like:
-
-```markdown
-![codecov](https://codecov.io/gh/Yao-class-cpp-studio/Project-1/branch/main/graph/badge.svg?token=JS6LK1XNFY)
-```
-
-If you want to view the coverage reports yourself,
-fork this repository and play with Codecov.
-You could also run locally with `gcov` after adding the following lines to `CMakeLists.txt`:
-
-```cmake
-add_compile_options(--coverage)
-add_link_options(--coverage)
-```
-
-See [`.github/workflows/`](.github/workflows/) for reference.
-Remember, **never show others your code or it will be considered plagiarism**.
+Now a new target has been added to the project,
+and you can find it in the list of executables,
+as what we have done in the previous assignments (`*_test`).
 
 ### Testing
 
@@ -203,7 +215,7 @@ cd build/ # Go to your build directory
 ctest
 ```
 
-## Adding a reader/writer test
+## Adding a Reader/Writer Test
 
 Tests are stored in `test/data`.
 To add a test, you need to create two files:
@@ -239,8 +251,102 @@ When a test is run, output files are generated beside the input test files. Belo
 * `test_complex_01.process-output`: `jsontest` output, typically useful for
   understanding parsing errors.
 
-## Adding a test for custom data types
+## Adding a Test for Custom Data Types
 
 Under `src/jsontestrunner/main.cpp`,
 the `printValueTree()` function is used to serialize the values in JSON,
 in order to compare line-by-line in the `.expected` files.
+
+### Setting-up Codecov
+
+Codecov requires admin access from the organization so TA will open up access for you
+**after you have accepted the homework in github classroom**.
+This might take 2-3 days depending on the workload of the TA.
+
+After the setup is done,
+you can find your own badge in the [homework document page](https://yaoclasscpp.studio/assignments/project-1/).
+Add the badge to your `README`!
+Right-click the badge and select "Open image in new tab" to get the URL.
+The markdown source should look like:
+
+```markdown
+![codecov](https://codecov.io/gh/Yao-class-cpp-studio/Project-1/branch/main/graph/badge.svg?token=JS6LK1XNFY)
+```
+
+If you want to view the coverage reports yourself,
+fork this repository and play with Codecov.
+You could also run locally with `gcov` after adding the following lines to `CMakeLists.txt`:
+
+```cmake
+add_compile_options(--coverage)
+add_link_options(--coverage)
+```
+
+See [`.github/workflows/`](.github/workflows/) for reference.
+Remember, **never show others your code or it will be considered plagiarism**.
+
+### About the Parser
+
+The parser in `src/lib_json/json_reader.cpp` is a recursive descent parser.
+It starts from `Reader::readValue()`, and scans the string for input.
+The `readToken()` function fetches a new token from the input string,
+similar to `char c; cin >> c;`.
+The difference is that tokens can be something longer than a single character,
+such as the number token,
+which reads in a whole number from the input string.
+
+Depending on the first character encountered,
+we can distinguish which types of values we are going to encounter in the stream.
+For example,
+if `{` is found, we know that it's going to be an object;
+if `"` is found, we know that it's going to be a string.
+Then it calls `readObject()` or `readString()` to continue reading the whole value.
+
+Something interesting about `readObject()` and `readArray()` is that
+it's a recursive structure.
+For each element in the array,
+it calls `readValue()` recursively to read the value inside,
+no matter what type it is.
+It only stops when it encounters a `]`.
+
+To be more specific about the implementation,
+`readValue()` consumes a few characters from the input string,
+and store the value in the `Value` object
+which the stack top of `OurReader::node_` points to.
+Therefore, to use `readValue()` functions:
+
+```cpp
+Value val;
+nodes_.push(&val);
+bool successful = readValue();
+nodes_.pop();
+if (successful) {
+    // val is correctly parsed!
+}
+```
+
+And to write a `read*()` function:
+```cpp
+bool readSomething() {
+    Value val;
+    if (*current_ == 'a') {
+        // this is the current character
+    }
+    if (*(current + 1) == 'b') {
+        // this is the next character
+    }
+    current += 1; // Only do this if you decide that (*current) is part of this value!
+    // Do something more to get val
+    currentValue().swap(val);
+}
+```
+
+Finally, add it to a branch in `Reader::readValue()` and `Reader::readToken()`.
+
+### About the Writer
+
+Writers are much simpler.
+Add a new case in `Writer::writeValue()`, write a corresponding function,
+and you are set.
+The only caveat is that there are two writers,
+so you might or might not need to implement both of them.
