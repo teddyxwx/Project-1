@@ -23,6 +23,7 @@ jobs:
           BUILD_TOOL=Ninja
           DO_MemCheck=true
           DO_Coverage=true
+          CXX=g++
           source .github/workflows/build.sh
       - name: Coveralls
         uses: coverallsapp/github-action@master
