@@ -10,7 +10,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install dependencies
-        run: sudo apt install valgrind ninja-build
+        run: |
+          sudo apt install -y \
+            valgrind \
+            ninja-build \
+            ;
       - name: Build
         run: |
           BUILD_TYPE=Release
@@ -19,7 +23,6 @@ jobs:
           DO_MemCheck=true
           DO_Coverage=true
           source .github/workflows/build.sh
-      
       - name: Coveralls
         uses: coverallsapp/github-action@master
         with:
