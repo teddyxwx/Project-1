@@ -107,8 +107,7 @@ since it is part of the project to design the API and the tests.
 
 ## Report
 
-After you finish a task,
-you should tick the checkbox here in `README.md`,
+Please tick the checkbox here in `README.md` after finishing a task,
 and briefly summarize what you did in the list above.
 
 A clear and well-organized summary helps TAs to understand your work better.
@@ -181,8 +180,14 @@ The markdown source should look like:
 ```
 
 If you want to view the coverage reports yourself,
-you could either run the coverage tests locally,
-or fork this repository and play with Codecov.
+fork this repository and play with Codecov.
+You could also run locally with `gcov` after adding the following lines to `CMakeLists.txt`:
+
+```cmake
+add_compile_options(--coverage)
+add_link_options(--coverage)
+```
+
 See [`.github/workflows/`](.github/workflows/) for reference.
 Remember, **never show others your code or it will be considered plagiarism**.
 
