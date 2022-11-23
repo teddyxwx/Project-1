@@ -2,8 +2,6 @@
 
 <sup><sub>This project is based on [jsoncpp](https://github.com/open-source-parsers/jsoncpp) [1.9.5](https://github.com/open-source-parsers/jsoncpp/releases/tag/1.9.5) licensed under [MIT](https://spdx.org/licenses/MIT.html).</sub></sup>
 
-- [ ] https://coveralls.io/
-
 ## Introduction
 
 > You can skip this section if you are familiar with JSON.
@@ -64,13 +62,13 @@ to explore how to design a type-safe dynamic library in C++.
 
 ## Tasks (max 100pts)
 
-- [ ] Maintenance (40%pts off if not done): Setup [Coveralls](https://coveralls.io/) for your repository to track the code coverage.
-    - Include a link to the coverage page here.
+- [ ] Maintenance (40%pts off if not done): Setup [Codecov](https://about.codecov.io/) for your repository to track the code coverage.
+    - Check below for instructions.
 - [ ] C++ API (5pts): Define JSON directly in C++ with [User-defined literals](https://en.cppreference.com/w/cpp/language/user_literal).
 - [ ] C++ API (5pts): Support [user-defined conversion](https://en.cppreference.com/w/cpp/language/cast_operator) to primitive types.
 - [ ] Utility (5pts): Convert from and to [CSV Files](https://datatracker.ietf.org/doc/html/rfc4180).
     - An implementation as simple as comma-separated values suffices.
-- [ ] Feature (5pts): Allow zero or one [trailing commas](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Trailing_commas) in JSON arrays and objects.
+- [ ] Feature (10pts): Allow zero or one [trailing commas](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Trailing_commas) in JSON arrays and objects.
 - [ ] Feature (10pts): Add a new type `binary` to represent binary data.
 - [ ] Feature (10pts): Support string concatenation.
     - Example: `{"name": "San"+"Zhang"}` should be equivalent to `{"name": "SanZhang"}`.
@@ -143,23 +141,88 @@ A (too) good example:
 ### Getting Started
 
 As always, you need a working C++ compiler and CMake installed on your system.
-Additionally, Python3 is required to run the tests.
 
 You might find the following files helpful:
 
 * `include/json/value.h`.
 * `src/lib_json/json_reader.cpp`.
 
+A few examples of the API are given in [`example/`](example/).
+
 For the usage of existing source code, see the original [Wiki](https://github.com/open-source-parsers/jsoncpp/wiki)
 and [API document](http://open-source-parsers.github.io/jsoncpp-docs/doxygen/index.html).
 
-### Adding a New `main()`
+### Adding a new executable
 
-To add a new executable that can be compiled and run,
-you need to modify `CMakeLists.txt` and `src/CMakeLists.txt`.
+If you write a new program with `main()` function,
+you need to add a new executable to `CMakeLists.txt`:
 
+```cmake
+add_executable(my_executable path/to/my_executable.cpp)
+target_link_libraries(my_executable jsoncpp_static)
+```
+
+in order to compile and link it with the JSON library.
+
+### Setting-up Codecov
+
+Codecov requires admin access from the organization so TA will open up access for you
+**after you have accepted the homework in github classroom**.
+This might take 2-3 days depending on the workload of the TA.
+
+After the setup is done,
 TODO
 
-### Setting-up Coveralls
+### Testing
 
-TODO
+To do testing, Python3 is required.
+
+Run test from "Testing"(测试) section on the top of Visual Studio,
+or in the terminal:
+
+```bash
+cd build/ # Go to your build directory
+ctest
+```
+
+## Adding a reader/writer test
+
+Tests are stored in `test/data`.
+To add a test, you need to create two files:
+
+* a `TESTNAME.json` file, that contains the input document in JSON format.
+* a `TESTNAME.expected` file, that contains a flatened representation of the
+  input document.
+
+The `TESTNAME.expected` file format is as follows:
+
+* Each line represents a JSON element of the element tree represented by the
+  input document.
+* Each line has two parts: the path to access the element separated from the
+  element value by `=`. Array and object values are always empty (i.e.
+  represented by either `[]` or `{}`).
+* Element path `.` represents the root element, and is used to separate object
+  members. `[N]` is used to specify the value of an array element at index `N`.
+
+See the examples `test_complex_01.json` and `test_complex_01.expected` to better understand element paths.
+
+When a test is run, output files are generated beside the input test files. Below is a short description of the content of each file:
+
+* `test_complex_01.json`: input JSON document.
+* `test_complex_01.expected`: flattened JSON element tree used to check if
+  parsing was corrected.
+* `test_complex_01.actual`: flattened JSON element tree produced by `jsontest`
+  from reading `test_complex_01.json`.
+* `test_complex_01.rewrite`: JSON document written by `jsontest` using the
+  `Json::Value` parsed from `test_complex_01.json` and serialized using
+  `Json::StyledWritter`.
+* `test_complex_01.actual-rewrite`: flattened JSON element tree produced by
+  `jsontest` from reading `test_complex_01.rewrite`.
+* `test_complex_01.process-output`: `jsontest` output, typically useful for
+  understanding parsing errors.
+
+## Adding a test for custom data types
+
+Under `src/jsontestrunner/main.cpp`,
+the `printValueTree()` function is used to serialize the values in JSON,
+in order to compare line-by-line in the `.expected` files.
