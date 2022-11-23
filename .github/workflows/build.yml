@@ -13,13 +13,11 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y \
-            valgrind \
+            lcov \
             make \
             ;
-          pip install --user cpp-coveralls
       - name: Build
         run: |
-          DO_MemCheck=true
           CXX=g++
           CC=gcc
           DO_Coverage=ON
@@ -27,6 +25,12 @@ jobs:
           BUILD_TYPE=Debug
           LIB_TYPE=static
           source .github/workflows/build.sh
+      - name: Gather coverage
+        # https://github.com/codecov/example-cpp11-cmake
+        run: |
+          - lcov --capture --directory . --output-file coverage.info
+          - lcov --remove coverage.info '/usr/*' --output-file coverage.info # filter system-files
+          - lcov --list coverage.info # debug info
       - name: Upload coverage reports
         uses: codecov/codecov-action@v3
         with:

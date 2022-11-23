@@ -80,8 +80,8 @@ if ! ${DO_MemCheck+false}; then
 else
 #   - DO_Coverage <- if set, try to do dashboard coverage testing
   if ! ${DO_Coverage+false}; then
-     export CXXFLAGS="-fprofile-arcs -ftest-coverage"
-     export LDFLAGS="-fprofile-arcs -ftest-coverage"
+     export CXXFLAGS="--coverage"
+     export LDFLAGS="--coverage"
      CTEST_TESTING_OPTION="-D ExperimentalTest -D ExperimentalCoverage"
      #gcov --version
   fi
