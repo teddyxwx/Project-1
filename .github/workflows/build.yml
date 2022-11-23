@@ -28,9 +28,9 @@ jobs:
       - name: Gather coverage
         # https://github.com/codecov/example-cpp11-cmake
         run: |
-          - lcov --capture --directory . --output-file coverage.info
-          - lcov --remove coverage.info '/usr/*' --output-file coverage.info # filter system-files
-          - lcov --list coverage.info # debug info
+          lcov --capture --directory . --output-file coverage.info
+          lcov --remove coverage.info '/usr/*' --output-file coverage.info # filter system-files
+          lcov --list coverage.info # debug info
       - name: Upload coverage reports
         uses: codecov/codecov-action@v3
         with:
