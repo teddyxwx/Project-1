@@ -27,8 +27,8 @@ jobs:
           BUILD_TYPE=Debug
           LIB_TYPE=static
           source .github/workflows/build.sh
-      steps:
-      - uses: codecov/codecov-action@v3
+      - name: Upload coverage reports
+        uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           gcov: true
