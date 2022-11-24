@@ -215,7 +215,7 @@ cd build/ # Go to your build directory
 ctest
 ```
 
-## Adding a Reader/Writer Test
+### Adding a Reader/Writer Test
 
 Tests are stored in `test/data`.
 To add a test, you need to create two files:
@@ -251,7 +251,7 @@ When a test is run, output files are generated beside the input test files. Belo
 * `test_complex_01.process-output`: `jsontest` output, typically useful for
   understanding parsing errors.
 
-## Adding a Test for Custom Data Types
+### Adding a Test for Custom Data Types
 
 Under `src/jsontestrunner/main.cpp`,
 the `printValueTree()` function is used to serialize the values in JSON,
