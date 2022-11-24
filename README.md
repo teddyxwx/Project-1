@@ -104,7 +104,7 @@ Each implemented feature should contain **reasonable** tests in order to get ful
 The specific test requirements for each task are **not** revealed
 since it is part of the project to design the API and the tests.
 
-## Report
+### Report
 
 Please tick the checkbox here in `README.md` after finishing a task,
 and briefly summarize what you did in the list above.
