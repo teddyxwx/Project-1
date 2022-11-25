@@ -68,7 +68,6 @@ to explore how to design a type-safe dynamic library in C++.
 - [ ] C++ API (15pts): Support [user-defined conversion](https://en.cppreference.com/w/cpp/language/cast_operator) to primitive types.
 - [ ] Utility (15pts): Convert from and to [CSV Files](https://datatracker.ietf.org/doc/html/rfc4180).
     - An implementation as simple as comma-separated values suffices.
-- [ ] Feature (30pts): Allow zero or one [trailing commas](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Trailing_commas) in JSON arrays and objects.
 - [ ] Feature (30pts): Support string concatenation.
     - Example: `{"name": "San"+"Zhang"}` should be equivalent to `{"name": "SanZhang"}`.
     - Concatenation in keys in objects is not required.
