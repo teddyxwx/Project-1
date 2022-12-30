@@ -113,7 +113,7 @@ cd "${_BUILD_DIR_NAME}"
     -DBUILD_SHARED_LIBS:BOOL=${_CMAKE_BUILD_SHARED_LIBS} \
     -DCMAKE_INSTALL_PREFIX:PATH=${DESTDIR} \
     ../
-
+  cmake --build .
   ctest -C ${BUILD_TYPE} -D ExperimentalStart -D ExperimentalConfigure -D ExperimentalBuild ${CTEST_TESTING_OPTION}
 cd -
 
